@@ -18,6 +18,11 @@ jobs:
 
     steps:
 
+    - uses: actions/checkout@v4
+      # https://github.com/marketplace/actions/checkout
+    
+    - run: find static-pages -type f
+
     - name: Use Node.js ${{ matrix.node-version }}
       # https://github.com/marketplace/actions/setup-node-js-environment
       uses: actions/setup-node@v4
@@ -25,11 +30,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     
-    - uses: actions/checkout@v4
-      # https://github.com/marketplace/actions/checkout
-    
-    - run: find static-pages -type f
-
     - run: npm install
 
     - uses: actions/checkout@v4
