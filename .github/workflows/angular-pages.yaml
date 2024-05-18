@@ -24,15 +24,15 @@ jobs:
         cache: 'npm'
     
     steps:
-    # https://github.com/marketplace/actions/checkout
     - uses: actions/checkout@v4
+      # https://github.com/marketplace/actions/checkout
     
     - run: find static-pages -type f
 
     - run: npm install
 
-    # https://github.com/marketplace/actions/checkout
     - uses: actions/checkout@v4
+      # https://github.com/marketplace/actions/checkout
       with:
         ref: pages
         path: static-pages/browser
