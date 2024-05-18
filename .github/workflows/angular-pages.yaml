@@ -16,10 +16,6 @@ jobs:
         node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-    # https://github.com/marketplace/actions/checkout
-    - uses: actions/checkout@v4
-    
     - name: Use Node.js ${{ matrix.node-version }}
       # https://github.com/marketplace/actions/setup-node-js-environment
       uses: actions/setup-node@v4
@@ -27,14 +23,22 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     
+    steps:
+    # https://github.com/marketplace/actions/checkout
+    - uses: actions/checkout@v4
+    
+    - run: find static-pages -type f
+
+    - run: npm install
+
     # https://github.com/marketplace/actions/checkout
     - uses: actions/checkout@v4
       with:
         ref: pages
         path: static-pages/browser
 
-    - run: find static-pages
+    - run: find static-pages -type f
 
     - run: npm run build -- --output-path static-pages
     
-    - run: find static-pages
+    - run: find static-pages -type f
