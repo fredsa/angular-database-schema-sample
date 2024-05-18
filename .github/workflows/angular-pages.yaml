@@ -34,10 +34,30 @@ jobs:
       # https://github.com/marketplace/actions/checkout
       with:
         ref: pages
-        path: static-pages/browser
+        path: gh-pages/
 
-    - run: find static-pages -type f
+    - run: find gh-pages/ -type f
 
-    - run: npm run build -- --output-path static-pages
+    - run: npm run build -- --output-path dist
     
-    - run: find static-pages -type f
+    - run: find dist/browser -type f
+
+    - run: rm $(git ls-files)
+      working-directory: gh-pages
+
+    - run: cp -rP dist/browser/ gh-pages/
+
+    - run: git status
+      working-directory: gh-pages
+      
+    - run: git add --all
+      working-directory: gh-pages
+
+    - run: git commit -m "$GITHUB_ACTION $(date '+%Y-%m-%d %H:%M:%S')\n$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+      working-directory: gh-pages
+
+    - run: git status
+      working-directory: gh-pages
+      
+    - run: git push
+      working-directory: gh-pages
