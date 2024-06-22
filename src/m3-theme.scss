@@ -1,0 +1,159 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Note: Color palettes are generated from primary: #047DAB, secondary: #5D5F5F, neutral: #FCF8F8
+$_palettes: (
+  primary: (0: #000000,
+    10: #001e2d,
+    20: #00344a,
+    25: #00405a,
+    30: #004c6a,
+    35: #00597b,
+    40: #00658c,
+    50: #0080af,
+    60: #299ace,
+    70: #4fb5ea,
+    80: #7fd0ff,
+    90: #c5e7ff,
+    95: #e4f3ff,
+    98: #f5faff,
+    99: #fbfcff,
+    100: #ffffff,
+  ),
+  secondary: (0: #000000,
+    10: #002022,
+    20: #00373a,
+    25: #004346,
+    30: #004f54,
+    35: #005c61,
+    40: #00696f,
+    50: #00848b,
+    60: #00a0a9,
+    70: #1dbdc6,
+    80: #4cd9e3,
+    90: #71f5ff,
+    95: #c3fbff,
+    98: #e8feff,
+    99: #f3feff,
+    100: #ffffff,
+  ),
+  tertiary: (0: #000000,
+    10: #1d1735,
+    20: #332c4c,
+    25: #3e3757,
+    30: #494263,
+    35: #554e70,
+    40: #61597c,
+    50: #7a7296,
+    60: #948bb1,
+    70: #afa6cd,
+    80: #cbc1e9,
+    90: #e7deff,
+    95: #f5eeff,
+    98: #fdf7ff,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+  neutral: (0: #000000,
+    4: #000a1d,
+    6: #000e2c,
+    10: #001849,
+    12: #001c52,
+    17: #002568,
+    20: #002b75,
+    22: #062f7b,
+    24: #0d3480,
+    25: #103683,
+    30: #21428f,
+    35: #2f4e9c,
+    40: #3c5ba9,
+    50: #5674c4,
+    60: #718ee0,
+    70: #8ba8fc,
+    80: #b3c5ff,
+    87: #ced9ff,
+    90: #dae1ff,
+    92: #e2e7ff,
+    94: #eaedff,
+    95: #eef0ff,
+    96: #f2f3ff,
+    98: #faf8ff,
+    99: #fefbff,
+    100: #ffffff,
+  ),
+  neutral-variant: (0: #000000,
+    10: #161c21,
+    20: #2a3136,
+    25: #353c41,
+    30: #41484d,
+    35: #4c5359,
+    40: #585f65,
+    50: #71787e,
+    60: #8b9297,
+    70: #a5acb2,
+    80: #c1c7ce,
+    90: #dde3ea,
+    95: #ebf1f8,
+    98: #f5faff,
+    99: #fbfcff,
+    100: #ffffff,
+  ),
+  error: (0: #000000,
+    10: #410002,
+    20: #690005,
+    25: #7e0007,
+    30: #93000a,
+    35: #a80710,
+    40: #ba1a1a,
+    50: #de3730,
+    60: #ff5449,
+    70: #ff897d,
+    80: #ffb4ab,
+    90: #ffdad6,
+    95: #ffedea,
+    98: #fff8f7,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+);
+
+$_rest: (
+  secondary: map.get($_palettes, secondary),
+  neutral: map.get($_palettes, neutral),
+  neutral-variant: map.get($_palettes, neutral-variant),
+  error: map.get($_palettes, error),
+);
+$_primary: map.merge(map.get($_palettes, primary), $_rest);
+$_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
+
+$light-theme: mat.define-theme((color: (theme-type: light,
+        primary: $_primary,
+        tertiary: $_tertiary,
+      ),
+    ));
+$dark-theme: mat.define-theme((color: (theme-type: dark,
+        primary: $_primary,
+        tertiary: $_tertiary,
+      ),
+    ));
+
+:root {
+  @include mat.all-component-themes($dark-theme);
+
+  @media (prefers-color-scheme: light) {
+    @include mat.all-component-colors($light-theme);
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

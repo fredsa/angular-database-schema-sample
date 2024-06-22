@@ -38,6 +38,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/m3-theme.scss",
               "src/styles.scss"
             ],
             "scripts": []
